@@ -3,11 +3,55 @@
 import { useState } from "react"
 import Image from "next/image"
 
-// This would typically come from an API or database
 const initialArtworks = [
-  { id: 1, title: "Sunset Dreams", artist: "Alice Johnson", image: "/placeholder.svg", likes: 24, saved: false },
-  { id: 2, title: "Urban Jungle", artist: "Bob Smith", image: "/placeholder.svg", likes: 18, saved: false },
-  { id: 3, title: "Serenity Now", artist: "Carol Williams", image: "/placeholder.svg", likes: 32, saved: false },
+  {
+    id: 1,
+    title: "Sunset Dreams",
+    artist: "Alice Johnson",
+    image: "/placeholder.svg?text=Sunset+Dreams",
+    likes: 24,
+    saved: false,
+  },
+  {
+    id: 2,
+    title: "Urban Jungle",
+    artist: "Bob Smith",
+    image: "/placeholder.svg?text=Urban+Jungle",
+    likes: 18,
+    saved: false,
+  },
+  {
+    id: 3,
+    title: "Serenity Now",
+    artist: "Carol Williams",
+    image: "/placeholder.svg?text=Serenity+Now",
+    likes: 32,
+    saved: false,
+  },
+  {
+    id: 4,
+    title: "Abstract Thoughts",
+    artist: "David Brown",
+    image: "/placeholder.svg?text=Abstract+Thoughts",
+    likes: 15,
+    saved: false,
+  },
+  {
+    id: 5,
+    title: "Nature's Embrace",
+    artist: "Eva Green",
+    image: "/placeholder.svg?text=Nature's+Embrace",
+    likes: 29,
+    saved: false,
+  },
+  {
+    id: 6,
+    title: "City Lights",
+    artist: "Frank White",
+    image: "/placeholder.svg?text=City+Lights",
+    likes: 21,
+    saved: false,
+  },
 ]
 
 export default function VisualGallery() {
@@ -26,7 +70,7 @@ export default function VisualGallery() {
       <h1 className="text-4xl font-bold mb-8">Visual Gallery</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {artworks.map((artwork) => (
-          <div key={artwork.id} className="modernistic-card overflow-hidden">
+          <div key={artwork.id} className="bg-white shadow-lg rounded-lg overflow-hidden">
             <Image
               src={artwork.image || "/placeholder.svg"}
               alt={artwork.title}

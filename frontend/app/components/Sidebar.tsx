@@ -8,7 +8,7 @@ const Sidebar = () => {
       <nav className="flex-grow">
         <ul className="space-y-4">
           <li>
-            <Link href="/" className="hover:text-gray-300">
+            <Link href="/home" className="hover:text-gray-300">
               Home
             </Link>
           </li>

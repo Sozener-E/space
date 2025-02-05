@@ -1,0 +1,22 @@
+# Python - Django
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.sqlite3
+db.sqlite3
+media/
+*.log
+
+# Node.js - Next.js
+node_modules/
+.next/
+out/
+.env
+.npm/
+.yarn/
+
+# Genel Git Ignore
+.DS_Store
+.idea/
+.vscode/

@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-
+from datetime import timedelta
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'artists',
     'rest_framework',  
-    'corsheaders',  
+    'corsheaders',
+    "rest_framework_simplejwt.token_blacklist",  
 ]
 
 MIDDLEWARE = [
@@ -52,9 +53,16 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
 ]
+
+CORS_ALLOW_CREDENTIALS = True  # Credential bilgileri (çerezler) paylaşılabilsin
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
 ]
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:3000",  # CSRF için güvenilir kaynak olarak ekle
+]
+
 ROOT_URLCONF = 'backend.urls'
 
 AUTH_USER_MODEL = 'artists.CustomUser'
@@ -119,6 +127,8 @@ USE_I18N = True
 
 USE_TZ = True
 
+DEBUG = True
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
@@ -129,3 +139,30 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),  
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),  
+    'ROTATE_REFRESH_TOKENS': True,  
+    'BLACKLIST_AFTER_ROTATION': True,  
+    'ALGORITHM': 'HS256',  
+}
+
+CSRF_COOKIE_SECURE = False  # Geliştirme ortamında False, prod'da True olmalı
+SESSION_COOKIE_SECURE = False  
+CSRF_COOKIE_HTTPONLY = True  
+SESSION_COOKIE_HTTPONLY = True  
+CSRF_TRUSTED_ORIGINS = ["http://localhost:3000"]
+
+
+CORS_ALLOW_HEADERS = [
+    "authorization",
+    "content-type",
+    "x-csrftoken",
+]

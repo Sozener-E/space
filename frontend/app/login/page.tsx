@@ -1,21 +1,32 @@
 "use client"
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
-import Link from "next/link"
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import axios from "axios";
+import { AxiosError } from "axios";
+
+
+const api = axios.create({
+  baseURL: "http://localhost:8000/auth", 
+  withCredentials: true, 
+});
 
 export default function Login() {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const router = useRouter()
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    // Here you would typically handle the login logic
-    console.log("Login attempt:", { email, password })
-    // For now, we'll just redirect to the home page
-    router.push("/home")
-  }
+    e.preventDefault();
+    try {
+      await api.post("/login/", { email, password });
+      router.push("/home");
+    } catch (error) {
+      const err = error as AxiosError;
+      console.error("Login failed:", err.response?.data || err.message)
+    }
+  };
 
   return (
     <div className="max-w-md mx-auto mt-10">
@@ -61,5 +72,5 @@ export default function Login() {
         </Link>
       </p>
     </div>
-  )
+  );
 }
